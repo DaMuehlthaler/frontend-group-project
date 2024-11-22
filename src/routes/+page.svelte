@@ -11,7 +11,7 @@
 		<input
             id="name"
 			type="text"
-			placeholder="e.g. Huber Hans"
+			placeholder="e.g. Habl Rans"
 			class="input input-bordered w-full   bg-white mb-8"
             required
 		/>
