@@ -4,6 +4,8 @@
 	href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
 	rel="stylesheet"
 />
+<img src="/images/bg-card-front.png" alt="ihhh" class="absolute z-10 top-[22%] left-[10%] w-96" />
+    <img src="/images/bg-card-back.png" alt="ihhh" class="absolute z-20 bottom-[20%] left-[16%] w-96" />
 <div class="flex">
 	<img src="/images/bg-main-desktop.png" alt="ihhh" class="h-screen -z-10" />
 	<div class="h-screen w-screen bg-white flex flex-col justify-center items-center">
@@ -65,5 +67,4 @@
 		</div>
 	</div>
 </div>
-<img src="/images/bg-card-front.png" alt="ihhh" class="" />
-<img src="/images/bg-card-back.png" alt="ihhh" class="" />
+
