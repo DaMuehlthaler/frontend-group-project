@@ -1,5 +1,7 @@
+<div class="flex">
+<img src="/images/bg-main-desktop.png" alt="ihhh" class="h-screen -z-10" />
 <div class="h-screen w-screen bg-white">
-	<img src="/images/bg-main-desktop.png" alt="ihhh" class="h-screen -z-10" />
+
 	<form class="inline" action="/">
 		<input
 			type="text"
@@ -18,5 +20,4 @@
 	<br />
 	<button class="btn glass">Submit</button>
 </div>
-
-<h1 class="font-extrabold text-yellow-400">Wichtiger Text</h1>
+</div>
