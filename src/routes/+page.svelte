@@ -1,7 +1,7 @@
 <div class="flex">
 <img src="/images/bg-main-desktop.png" alt="ihhh" class="h-screen -z-10" />
 <div class="h-screen w-screen bg-white flex flex-col justify-center items-center">
-    <div class="w-[440px] border border-sky-500 h-fit">
+    <div class="w-[440px] h-fit">
 	<form action="/">
         <label for="name" class="text-black uppercase tracking-wide font-condensed">Cardholder Name</label>
 		<input
