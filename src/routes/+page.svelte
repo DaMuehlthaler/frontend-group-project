@@ -5,7 +5,7 @@
 	rel="stylesheet"
 />
 <img src="/images/bg-card-front.png" alt="ihhh" class="absolute z-10 top-[22%] left-[10%] w-96" />
-    <img src="/images/bg-card-back.png" alt="ihhh" class="absolute z-20 bottom-[20%] left-[16%] w-96" />
+<img src="/images/bg-card-back.png" alt="ihhh" class="absolute z-20 bottom-[20%] left-[16%] w-96" />
 <div class="flex">
 	<img src="/images/bg-main-desktop.png" alt="ihhh" class="h-screen -z-10" />
 	<div class="h-screen w-screen bg-white flex flex-col justify-center items-center">
