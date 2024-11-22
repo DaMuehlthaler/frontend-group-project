@@ -9,9 +9,9 @@ export default {
 
 	theme: {
 		extend: {
-			fontFamily: {
-        poppins: ["Space Grotesk", "sans-serif"],
-      }
+			ffontFamily: {
+        		'space-grotesk': ['"Space Grotesk"', 'sans-serif'],
+      },
 		}
 	},
 
