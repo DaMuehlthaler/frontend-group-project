@@ -18,3 +18,5 @@
 	<br />
 	<button class="btn glass">Submit</button>
 </div>
+
+<h1 class="font-extrabold text-yellow-400">Wichtiger Text</h1>
