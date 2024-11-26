@@ -7,8 +7,8 @@
 	let isSubmitted = false;
 
 	$: formattedCardNumber = cardNumber
-		.replace(/\D/g, '')
-		.replace(/(.{4})/g, '$1 ')
+		.replace(/\D/g, '') // Only digits
+		.replace(/(.{4})/g, '$1 ') // Space every 4 digits
 		.trim();
 
 	function handleSubmit() {
@@ -75,7 +75,7 @@
 					<input
 						style="color: black;"
 						id="card"
-						type="text"
+						type="number"
 						bind:value={cardNumber}
 						placeholder="e.g. 1234 5678 9123 0000"
 						class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -89,20 +89,22 @@
 						<div class="flex space-x-2">
 							<input
 								style="color: black;"
-								type="text"
+								type="number"
 								bind:value={expiryMonth}
 								placeholder="MM"
 								class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-								maxlength="2"
+								min="1"
+								max="12"
 								required
 							/>
 							<input
 								style="color: black;"
-								type="text"
+								type="number"
 								bind:value={expiryYear}
 								placeholder="YY"
 								class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-								maxlength="2"
+								min="0"
+								max="99"
 								required
 							/>
 						</div>
@@ -112,11 +114,12 @@
 						<input
 							style="color: black;"
 							id="cvc"
-							type="text"
+							type="number"
 							bind:value={cvc}
 							placeholder="e.g. 123"
 							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-							maxlength="3"
+							min="100"
+							max="999"
 							required
 						/>
 					</div>
