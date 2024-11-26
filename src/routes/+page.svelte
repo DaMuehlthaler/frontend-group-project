@@ -152,6 +152,7 @@
 			<p class="text-gray-500">We've added your card details</p>
 			<button
 				class="w-full max-w-sm bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800"
+				on:click={() => (isSubmitted = false)}
 			>
 				Continue
 			</button>
