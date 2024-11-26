@@ -45,7 +45,7 @@
 					{formattedCardNumber || '0000 0000 0000 0000'}
 				</p>
 				<div class="flex justify-between mt-4 text-white text-sm lg:text-base">
-					<p>{cardholderName || 'JANE APPLESEED'}</p>
+					<p>{cardholderName || 'Habl Rans'}</p>
 					<p>{expiryMonth || '00'}/{expiryYear || '00'}</p>
 				</div>
 			</div>
@@ -72,7 +72,7 @@
 						id="name"
 						type="text"
 						bind:value={cardholderName}
-						placeholder="e.g. Jane Appleseed"
+						placeholder="e.g. Habl Rans"
 						class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
 						required
 					/>
