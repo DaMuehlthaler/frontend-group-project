@@ -97,6 +97,7 @@
 								required
 							/>
 							<input
+								style="color: black;"
 								type="text"
 								bind:value={expiryYear}
 								placeholder="YY"
