@@ -1,69 +1,162 @@
+<script>
+	// Reaktive Variablen
+	let cardholderName = '';
+	let cardNumber = '';
+	let expiryMonth = '';
+	let expiryYear = '';
+	let cvc = '';
+	let isSubmitted = false;
+
+	// Formatiere die Kartennummer
+	$: formattedCardNumber = cardNumber
+		.replace(/\D/g, '') // Nur Ziffern
+		.replace(/(.{4})/g, '$1 ') // Leerzeichen nach 4 Ziffern
+		.trim();
+
+	function handleSubmit() {
+		isSubmitted = true;
+	}
+</script>
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
 	href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
 	rel="stylesheet"
 />
-<img src="/images/bg-card-front.png" alt="ihhh" class="absolute z-10 top-[22%] left-[10%] w-96" />
-<img src="/images/bg-card-back.png" alt="ihhh" class="absolute z-20 bottom-[20%] left-[16%] w-96" />
-<div class="flex">
-	<img src="/images/bg-main-desktop.png" alt="ihhh" class="h-screen -z-10" />
-	<div class="h-screen w-screen bg-white flex flex-col justify-center items-center">
-		<div class="w-[440px] h-fit">
-			<form action="/">
-				<label for="name" class="text-grey uppercase tracking-wide font-condensed"
-					>Cardholder Name</label
-				>
-				<input
-					id="name"
-					type="text"
-					placeholder="e.g. Habl Rans"
-					class="input input-bordered w-full bg-white mb-8"
-					required
-				/>
-				<br />
-				<label for="card" class="text-grey uppercase tracking-wide font-space-grotesk"
-					>Card Number</label
-				>
-				<input
-					type="number"
-					maxlength="10"
-					id="card"
-					required
-					placeholder="5602 5622 5621"
-					class="input input-bordered w-full mb-8 bg-white"
-				/>
-				<div class="w-full flex gap-[85px]">
-					<label for="expiry" class="text-grey uppercase tracking-wide">EXP. Date (MM/YY)</label>
-					<label for="cvc" class="text-grey uppercase tracking-wide text-right mr">CVC</label>
+
+<!-- Main Container -->
+<div
+	class="h-screen flex flex-col lg:flex-row items-center justify-center bg-gradient-to-b from-violet-900 to-black font-space-grotesk"
+>
+	<!-- Linker Bereich: Karten -->
+	{#if !isSubmitted}
+		<div class="relative flex-1 flex flex-col items-center lg:items-start lg:justify-center">
+			<!-- Vorderseite der Karte -->
+			<div
+				class="relative w-[280px] lg:w-[400px] h-[160px] lg:h-[220px] bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg p-5 shadow-xl"
+			>
+				<div class="flex justify-between items-center">
+					<div class="w-10 h-10 bg-white rounded-full"></div>
+					<div class="w-5 h-5 border border-white rounded-full"></div>
 				</div>
+				<p class="mt-6 text-white text-xl lg:text-2xl tracking-widest">
+					{formattedCardNumber || '0000 0000 0000 0000'}
+				</p>
+				<div class="flex justify-between mt-4 text-white text-sm lg:text-base">
+					<p>{cardholderName || 'JANE APPLESEED'}</p>
+					<p>{expiryMonth || '00'}/{expiryYear || '00'}</p>
+				</div>
+			</div>
 
-				<input
-					type="number"
-					maxlength="2"
-					required
-					placeholder="MM"
-					class="input input-bordered w-1/4 bg-white mb-8"
-				/>
+			<!-- Rückseite der Karte -->
+			<div
+				class="relative mt-4 w-[280px] lg:w-[400px] h-[160px] lg:h-[220px] bg-gray-800 rounded-lg p-5 shadow-xl"
+			>
+				<div class="absolute top-[30%] left-0 right-0 h-[40px] bg-gray-700"></div>
+				<p class="absolute bottom-5 right-5 text-white text-sm lg:text-base">{cvc || '123'}</p>
+			</div>
+		</div>
 
-				<input
-					type="number"
-					maxlength="2"
-					required
-					placeholder="YY"
-					class="input input-bordered bg-white w-1/4"
-				/>
-
-				<input
-					type="number"
-					maxlength="3"
-					required
-					placeholder="e.g.123"
-					class="input input-bordered w-[48%] bg-white mb-8"
-				/>
-				<br />
-				<button class="btn btn-primary border-none bg-black w-full text-white">Confirm</button>
+		<!-- Rechter Bereich: Formular -->
+		<div
+			class="flex-1 flex items-center justify-center bg-white h-full w-full lg:w-auto lg:h-screen rounded-t-[20px] lg:rounded-none p-8"
+		>
+			<form class="w-full max-w-md space-y-6" on:submit|preventDefault={handleSubmit}>
+				<div>
+					<label for="name" class="block text-gray-600 text-sm font-medium mb-2"
+						>Cardholder Name</label
+					>
+					<input
+						id="name"
+						type="text"
+						bind:value={cardholderName}
+						placeholder="e.g. Jane Appleseed"
+						class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+						required
+					/>
+				</div>
+				<div>
+					<label for="card" class="block text-gray-600 text-sm font-medium mb-2">Card Number</label>
+					<input
+						id="card"
+						type="text"
+						bind:value={cardNumber}
+						placeholder="e.g. 1234 5678 9123 0000"
+						class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+						maxlength="19"
+						required
+					/>
+				</div>
+				<div class="flex space-x-4">
+					<div>
+						<label class="block text-gray-600 text-sm font-medium mb-2">EXP. Date (MM/YY)</label>
+						<div class="flex space-x-2">
+							<input
+								type="text"
+								bind:value={expiryMonth}
+								placeholder="MM"
+								class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+								maxlength="2"
+								required
+							/>
+							<input
+								type="text"
+								bind:value={expiryYear}
+								placeholder="YY"
+								class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+								maxlength="2"
+								required
+							/>
+						</div>
+					</div>
+					<div>
+						<label for="cvc" class="block text-gray-600 text-sm font-medium mb-2">CVC</label>
+						<input
+							id="cvc"
+							type="text"
+							bind:value={cvc}
+							placeholder="e.g. 123"
+							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
+							maxlength="3"
+							required
+						/>
+					</div>
+				</div>
+				<button
+					class="w-full bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800"
+				>
+					Confirm
+				</button>
 			</form>
 		</div>
-	</div>
+	{:else}
+		<!-- Erfolgsseite -->
+		<div
+			class="flex flex-col items-center text-center space-y-4 bg-white h-full w-full lg:w-auto lg:h-screen rounded-t-[20px] lg:rounded-none p-8"
+		>
+			<div class="w-16 h-16 bg-purple-700 text-white rounded-full flex items-center justify-center">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="h-8 w-8"
+					fill="none"
+					viewBox="0 0 24 24"
+					stroke="currentColor"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M5 13l4 4L19 7"
+					/>
+				</svg>
+			</div>
+			<h2 class="text-2xl font-bold">Thank You!</h2>
+			<p class="text-gray-500">We've added your card details</p>
+			<button class="w-full bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800">
+				Continue
+			</button>
+		</div>
+	{/if}
 </div>
