@@ -157,6 +157,11 @@
 				class="w-full max-w-sm bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800"
 				on:click={() => (isSubmitted = false)}
 			>
+				Go Back
+			</button>
+			<button
+				class="w-full max-w-sm bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800"
+			>
 				Continue
 			</button>
 		</div>
