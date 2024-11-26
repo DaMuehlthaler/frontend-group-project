@@ -30,7 +30,7 @@
 					maxlength="10"
 					id="card"
 					required
-					placeholder="1234 5678"
+					placeholder="5602 5622 5621"
 					class="input input-bordered w-full mb-8 bg-white"
 				/>
 				<div class="w-full flex gap-[85px]">
