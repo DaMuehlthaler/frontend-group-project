@@ -1,5 +1,4 @@
 <script>
-	// Reaktive Variablen
 	let cardholderName = '';
 	let cardNumber = '';
 	let expiryMonth = '';
@@ -7,10 +6,9 @@
 	let cvc = '';
 	let isSubmitted = false;
 
-	// Formatiere die Kartennummer
 	$: formattedCardNumber = cardNumber
-		.replace(/\D/g, '') // Nur Ziffern
-		.replace(/(.{4})/g, '$1 ') // Leerzeichen nach 4 Ziffern
+		.replace(/\D/g, '')
+		.replace(/(.{4})/g, '$1 ')
 		.trim();
 
 	function handleSubmit() {
@@ -18,7 +16,6 @@
 	}
 </script>
 
-<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
@@ -26,16 +23,15 @@
 	rel="stylesheet"
 />
 
-<!-- Main Container -->
 <div
 	class="h-screen flex flex-col lg:flex-row items-center justify-center bg-gradient-to-b from-violet-900 to-black font-space-grotesk"
 >
-	<!-- Linker Bereich: Karten -->
 	{#if !isSubmitted}
-		<div class="relative flex-1 flex flex-col items-center lg:items-start lg:justify-center">
-			<!-- Vorderseite der Karte -->
+		<div
+			class="relative flex-1 flex flex-col items-center lg:items-start lg:justify-center lg:ml-[10%]"
+		>
 			<div
-				class="relative w-[280px] lg:w-[400px] h-[160px] lg:h-[220px] bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg p-5 shadow-xl"
+				class="relative w-[280px] lg:w-[400px] h-[160px] lg:h-[220px] bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg p-5 shadow-xl lg:ml-[10%]"
 			>
 				<div class="flex justify-between items-center">
 					<div class="w-10 h-10 bg-white rounded-full"></div>
@@ -49,17 +45,13 @@
 					<p>{expiryMonth || '00'}/{expiryYear || '00'}</p>
 				</div>
 			</div>
-
-			<!-- Rückseite der Karte -->
 			<div
-				class="relative mt-4 w-[280px] lg:w-[400px] h-[160px] lg:h-[220px] bg-gray-800 rounded-lg p-5 shadow-xl"
+				class="relative mt-4 w-[280px] lg:w-[400px] h-[160px] lg:h-[220px] bg-gray-800 rounded-lg p-5 shadow-xl lg:ml-[8%]"
 			>
 				<div class="absolute top-[30%] left-0 right-0 h-[40px] bg-gray-700"></div>
 				<p class="absolute bottom-5 right-5 text-white text-sm lg:text-base">{cvc || '123'}</p>
 			</div>
 		</div>
-
-		<!-- Rechter Bereich: Formular -->
 		<div
 			class="flex-1 flex items-center justify-center bg-white h-full w-full lg:w-auto lg:h-screen rounded-t-[20px] lg:rounded-none p-8"
 		>
@@ -132,9 +124,8 @@
 			</form>
 		</div>
 	{:else}
-		<!-- Erfolgsseite -->
 		<div
-			class="flex flex-col items-center text-center space-y-4 bg-white h-full w-full lg:w-auto lg:h-screen rounded-t-[20px] lg:rounded-none p-8"
+			class="flex flex-col items-center justify-center bg-white h-screen w-screen text-center p-8 space-y-4"
 		>
 			<div class="w-16 h-16 bg-purple-700 text-white rounded-full flex items-center justify-center">
 				<svg
@@ -154,7 +145,9 @@
 			</div>
 			<h2 class="text-2xl font-bold">Thank You!</h2>
 			<p class="text-gray-500">We've added your card details</p>
-			<button class="w-full bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800">
+			<button
+				class="w-full max-w-sm bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800"
+			>
 				Continue
 			</button>
 		</div>
