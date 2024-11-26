@@ -61,6 +61,7 @@
 						>Cardholder Name</label
 					>
 					<input
+						style="color: black;"
 						id="name"
 						type="text"
 						bind:value={cardholderName}
@@ -72,6 +73,7 @@
 				<div>
 					<label for="card" class="block text-gray-600 text-sm font-medium mb-2">Card Number</label>
 					<input
+						style="color: black;"
 						id="card"
 						type="text"
 						bind:value={cardNumber}
@@ -86,6 +88,7 @@
 						<label class="block text-gray-600 text-sm font-medium mb-2">EXP. Date (MM/YY)</label>
 						<div class="flex space-x-2">
 							<input
+								style="color: black;"
 								type="text"
 								bind:value={expiryMonth}
 								placeholder="MM"
@@ -106,6 +109,7 @@
 					<div>
 						<label for="cvc" class="block text-gray-600 text-sm font-medium mb-2">CVC</label>
 						<input
+							style="color: black;"
 							id="cvc"
 							type="text"
 							bind:value={cvc}
