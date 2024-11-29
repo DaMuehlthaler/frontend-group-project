@@ -110,7 +110,7 @@
 						</div>
 					</div>
 					<div>
-						<label for="cvc" class="block text-gray-600 text-sm font-medium mb-2">CVC</label>
+						<label for="cvc" class="block text-gray-600 text-sm font-medium mb-2 ml-5">CVC</label>
 						<input
 							style="color: black;"
 							id="cvc"
