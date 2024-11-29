@@ -32,7 +32,7 @@
 <div class="h-screen flex flex-row bg-base-200 font-space-grotesk">
 	<!-- Linke Seite: Kartenvorschau -->
 	<div
-		class="flex-1 flex flex-col items-center justify-center space-y-6 p-8"
+		class="flex-1 flex flex-col items-center justify-center space-y-6 p-8 order-2 sm:order-1"
 		style="background: url('https://via.placeholder.com/') no-repeat center/cover;"
 	>
 		<!-- Karten-Vorderseite -->
@@ -63,7 +63,7 @@
 	</div>
 
 	<!-- Rechte Seite: Formular -->
-	<div class="flex-1 bg-white flex flex-col items-center justify-center p-8">
+	<div class="flex-1 bg-white flex flex-col items-center justify-center p-8 order-1 sm:order-2">
 		{#if !isSubmitted}
 			<div class="w-full max-w-md space-y-6">
 				<!-- Formular -->
@@ -80,7 +80,7 @@
 							type="text"
 							bind:value={cardholderName}
 							placeholder="z.B. Habl Rans"
-							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary input-text"
 							required
 						/>
 					</div>
@@ -93,7 +93,7 @@
 							type="text"
 							bind:value={cardNumber}
 							placeholder="z.B. 1234 5678 9123 0000"
-							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary input-text"
 							maxlength="19"
 							on:input={() => (cardNumber = cardNumber.replace(/\D/g, '').slice(0, 16))}
 							required
@@ -110,7 +110,7 @@
 									type="text"
 									bind:value={expiryMonth}
 									placeholder="MM"
-									class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+									class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary input-text"
 									on:input={() => (expiryMonth = expiryMonth.replace(/\D/g, '').slice(0, 2))}
 									required
 								/>
@@ -118,7 +118,7 @@
 									type="text"
 									bind:value={expiryYear}
 									placeholder="YY"
-									class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+									class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary input-text"
 									on:input={() => (expiryYear = expiryYear.replace(/\D/g, '').slice(0, 2))}
 									required
 								/>
@@ -131,7 +131,7 @@
 								type="text"
 								bind:value={cvc}
 								placeholder="z.B. 123"
-								class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+								class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary input-text"
 								on:input={() => (cvc = cvc.replace(/\D/g, '').slice(0, 3))}
 								required
 							/>
@@ -163,7 +163,8 @@
 						/>
 					</svg>
 				</div>
-				<h2 class="text-2xl font-bold">Vielen Dank!</h2>
+				<h2 class="text-2xl font-bold" style="color: #303030;">Vielen Dank!</h2>
+				<!-- Farbwert geändert -->
 				<p class="text-gray-500">Ihre Kartendetails wurden hinzugefügt</p>
 				<button
 					class="bg-primary text-white py-3 px-6 rounded-lg shadow-md hover:bg-primary-focus"
@@ -205,3 +206,18 @@
 		</label>
 	</div>
 </div>
+
+<!-- Zusätzliche CSS für Medienabfragen -->
+<style>
+	@media (max-width: 768px) {
+		/* Anpassungen, damit die Karten nebeneinander bleiben */
+		.flex-row {
+			flex-direction: row; /* Karten nebeneinander */
+		}
+	}
+
+	/* Eingabefelder und Textfarbe */
+	.input-text {
+		color: #303030 !important;
+	}
+</style>
