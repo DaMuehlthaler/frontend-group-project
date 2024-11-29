@@ -170,8 +170,40 @@
 					class="bg-primary text-white py-3 px-6 rounded-lg shadow-md hover:bg-primary-focus"
 					on:click={() => (isSubmitted = false)}
 				>
+					Zurück
+				</button>
+				<button class="bg-primary text-white py-3 px-6 rounded-lg shadow-md hover:bg-primary-focus">
 					Weiter
 				</button>
+
+				<div class="rating">
+					<input
+						type="radio"
+						name="rating-2"
+						class="mask mask-star-2 bg-green-500 lemonade-checked"
+					/>
+					<input
+						type="radio"
+						name="rating-2"
+						class="mask mask-star-2 bg-green-500 lemonade-checked"
+						checked="checked"
+					/>
+					<input
+						type="radio"
+						name="rating-2"
+						class="mask mask-star-2 bg-green-500 lemonade-checked"
+					/>
+					<input
+						type="radio"
+						name="rating-2"
+						class="mask mask-star-2 bg-green-500 lemonade-checked"
+					/>
+					<input
+						type="radio"
+						name="rating-2"
+						class="mask mask-star-2 bg-green-500 lemonade-checked"
+					/>
+				</div>
 			</div>
 		{/if}
 	</div>
