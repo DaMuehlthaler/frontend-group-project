@@ -10,8 +10,11 @@ export default {
 	theme: {
 		extend: {
 			ffontFamily: {
-        		'space-grotesk': ['"Space Grotesk"', 'sans-serif'],
-      },
+				'space-grotesk': ['"Space Grotesk"', 'sans-serif']
+			}
+		},
+		daisyui: {
+			themes: ['acid', 'sunset']
 		}
 	},
 

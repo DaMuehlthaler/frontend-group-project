@@ -5,165 +5,203 @@
 	let expiryYear = '';
 	let cvc = '';
 	let isSubmitted = false;
+	let theme = 'synthwave'; // Default theme
 
 	$: formattedCardNumber = cardNumber
-		.replace(/\D/g, '') // Only digits
-		.replace(/(.{4})/g, '$1 ') // Space every 4 digits
+		.replace(/\D/g, '') // Nur Zahlen
+		.replace(/(.{4})/g, '$1 ') // Alle 4 Stellen ein Leerzeichen
 		.trim();
 
 	function handleSubmit() {
 		isSubmitted = true;
 	}
+
+	function toggleTheme() {
+		theme = theme === 'synthwave' ? 'lemonade' : 'synthwave';
+		document.querySelector('html').setAttribute('data-theme', theme);
+	}
 </script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- DaisyUI und Schriftarten laden -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@3.0.0/dist/full.css" />
 <link
 	href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
 	rel="stylesheet"
 />
 
-<div
-	class="h-screen flex flex-col lg:flex-row items-center justify-center bg-gradient-to-b from-violet-900 to-black font-space-grotesk"
->
-	{#if !isSubmitted}
+<div class="h-screen flex flex-row bg-base-200 font-space-grotesk">
+	<!-- Linke Seite: Kartenvorschau -->
+	<div
+		class="flex-1 flex flex-col items-center justify-center space-y-6 p-8"
+		style="background: url('https://via.placeholder.com/') no-repeat center/cover;"
+	>
+		<!-- Karten-Vorderseite -->
 		<div
-			class="relative flex-1 flex flex-col items-center lg:items-start lg:justify-center lg:ml-[10%]"
+			class={`relative w-[300px] h-[180px] p-5 shadow-xl rounded-lg ${
+				theme === 'synthwave'
+					? 'bg-gradient-to-r from-purple-600 to-pink-500'
+					: 'bg-gradient-to-r from-yellow-400 to-green-400'
+			}`}
 		>
-			<div
-				class="relative w-[280px] lg:w-[400px] h-[160px] lg:h-[220px] bg-gradient-to-r from-purple-600 to-pink-500 rounded-lg p-5 shadow-xl lg:ml-[10%]"
-			>
-				<div class="flex justify-between items-center">
-					<div class="w-10 h-10 bg-white rounded-full"></div>
-					<div class="w-5 h-5 border border-white rounded-full"></div>
-				</div>
-				<p class="mt-6 text-white text-xl lg:text-2xl tracking-widest">
-					{formattedCardNumber || '0000 0000 0000 0000'}
-				</p>
-				<div class="flex justify-between mt-4 text-white text-sm lg:text-base">
-					<p>{cardholderName || 'Habl Rans'}</p>
-					<p>{expiryMonth || '00'}/{expiryYear || '00'}</p>
-				</div>
+			<div class="flex justify-between items-center">
+				<div class="w-10 h-10 bg-white rounded-full"></div>
+				<div class="w-5 h-5 border border-white rounded-full"></div>
 			</div>
-			<div
-				class="relative mt-4 w-[280px] lg:w-[400px] h-[160px] lg:h-[220px] bg-gray-800 rounded-lg p-5 shadow-xl lg:ml-[8%]"
-			>
-				<div class="absolute top-[30%] left-0 right-0 h-[40px] bg-gray-700"></div>
-				<p class="absolute bottom-5 right-5 text-white text-sm lg:text-base">{cvc || '123'}</p>
+			<p class="mt-6 text-white text-xl tracking-widest">
+				{formattedCardNumber || '0000 0000 0000 0000'}
+			</p>
+			<div class="flex justify-between mt-4 text-white text-sm">
+				<p>{cardholderName || 'Habl Rans'}</p>
+				<p>{expiryMonth || '00'}/{expiryYear || '00'}</p>
 			</div>
 		</div>
-		<div
-			class="flex-1 flex items-center justify-center bg-white h-full w-full lg:w-auto lg:h-screen rounded-t-[20px] lg:rounded-none p-8"
-		>
-			<form class="w-full max-w-md space-y-6" on:submit|preventDefault={handleSubmit}>
-				<div>
-					<label for="name" class="block text-gray-600 text-sm font-medium mb-2"
-						>Cardholder Name</label
-					>
-					<input
-						style="color: black;"
-						id="name"
-						type="text"
-						bind:value={cardholderName}
-						placeholder="e.g. Habl Rans"
-						class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-						required
-					/>
-				</div>
-				<div>
-					<label for="card" class="block text-gray-600 text-sm font-medium mb-2">Card Number</label>
-					<input
-						style="color: black;"
-						id="card"
-						type="number"
-						bind:value={cardNumber}
-						placeholder="e.g. 1234 5678 9123 0000"
-						class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-						maxlength="19"
-						required
-					/>
-				</div>
-				<div class="flex space-x-4">
+		<!-- Karten-Rückseite -->
+		<div class="relative w-[300px] h-[180px] bg-gray-800 rounded-lg p-5 shadow-xl">
+			<div class="absolute top-[30%] left-0 right-0 h-[40px] bg-gray-700"></div>
+			<p class="absolute bottom-5 right-5 text-white text-sm">{cvc || '123'}</p>
+		</div>
+	</div>
+
+	<!-- Rechte Seite: Formular -->
+	<div class="flex-1 bg-white flex flex-col items-center justify-center p-8">
+		{#if !isSubmitted}
+			<div class="w-full max-w-md space-y-6">
+				<!-- Formular -->
+				<h2 class="text-2xl font-bold text-black text-center">
+					Fügen Sie Ihre Kartendetails hinzu
+				</h2>
+				<form on:submit|preventDefault={handleSubmit} class="space-y-6">
 					<div>
-						<label class="block text-gray-600 text-sm font-medium mb-2">EXP. Date (MM/YY)</label>
-						<div class="flex space-x-2">
+						<label for="name" class="block text-gray-600 text-sm font-medium mb-2">
+							Karteninhaber
+						</label>
+						<input
+							id="name"
+							type="text"
+							bind:value={cardholderName}
+							placeholder="z.B. Habl Rans"
+							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+							required
+						/>
+					</div>
+					<div>
+						<label for="card" class="block text-gray-600 text-sm font-medium mb-2">
+							Kartennummer
+						</label>
+						<input
+							id="card"
+							type="text"
+							bind:value={cardNumber}
+							placeholder="z.B. 1234 5678 9123 0000"
+							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+							maxlength="19"
+							on:input={() => (cardNumber = cardNumber.replace(/\D/g, '').slice(0, 16))}
+							required
+						/>
+					</div>
+					<div class="flex space-x-4">
+						<div>
+							<!-- svelte-ignore a11y_label_has_associated_control -->
+							<label class="block text-gray-600 text-sm font-medium mb-2">
+								Gültig bis (MM/YY)
+							</label>
+							<div class="flex space-x-2">
+								<input
+									type="text"
+									bind:value={expiryMonth}
+									placeholder="MM"
+									class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+									on:input={() => (expiryMonth = expiryMonth.replace(/\D/g, '').slice(0, 2))}
+									required
+								/>
+								<input
+									type="text"
+									bind:value={expiryYear}
+									placeholder="YY"
+									class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+									on:input={() => (expiryYear = expiryYear.replace(/\D/g, '').slice(0, 2))}
+									required
+								/>
+							</div>
+						</div>
+						<div>
+							<label for="cvc" class="block text-gray-600 text-sm font-medium mb-2"> CVC </label>
 							<input
-								style="color: black;"
-								type="number"
-								bind:value={expiryMonth}
-								placeholder="MM"
-								class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-								min="1"
-								max="12"
-								required
-							/>
-							<input
-								style="color: black;"
-								type="number"
-								bind:value={expiryYear}
-								placeholder="YY"
-								class="w-16 border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-								min="0"
-								max="99"
+								id="cvc"
+								type="text"
+								bind:value={cvc}
+								placeholder="z.B. 123"
+								class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-primary"
+								on:input={() => (cvc = cvc.replace(/\D/g, '').slice(0, 3))}
 								required
 							/>
 						</div>
 					</div>
-					<div>
-						<label for="cvc" class="block text-gray-600 text-sm font-medium mb-2 ml-5">CVC</label>
-						<input
-							style="color: black;"
-							id="cvc"
-							type="number"
-							bind:value={cvc}
-							placeholder="e.g. 123"
-							class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-purple-500"
-							min="100"
-							max="999"
-							required
-						/>
-					</div>
-				</div>
-				<button
-					class="w-full bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800"
-				>
-					Confirm
-				</button>
-			</form>
-		</div>
-	{:else}
-		<div
-			class="flex flex-col items-center justify-center bg-white h-screen w-screen text-center p-8 space-y-4"
-		>
-			<div class="w-16 h-16 bg-purple-700 text-white rounded-full flex items-center justify-center">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-8 w-8"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M5 13l4 4L19 7"
-					/>
-				</svg>
+					<button
+						class="w-full bg-primary text-white py-3 rounded-lg shadow-md hover:bg-primary-focus"
+					>
+						Bestätigen
+					</button>
+				</form>
 			</div>
-			<h2 class="text-2xl font-bold">Thank You!</h2>
-			<p class="text-gray-500">We've added your card details</p>
-			<button
-				class="w-full max-w-sm bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800"
-				on:click={() => (isSubmitted = false)}
+		{:else}
+			<!-- Bestätigung -->
+			<div class="flex flex-col items-center text-center space-y-4">
+				<div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-8 w-8"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M5 13l4 4L19 7"
+						/>
+					</svg>
+				</div>
+				<h2 class="text-2xl font-bold">Vielen Dank!</h2>
+				<p class="text-gray-500">Ihre Kartendetails wurden hinzugefügt</p>
+				<button
+					class="bg-primary text-white py-3 px-6 rounded-lg shadow-md hover:bg-primary-focus"
+					on:click={() => (isSubmitted = false)}
+				>
+					Weiter
+				</button>
+			</div>
+		{/if}
+	</div>
+
+	<!-- Theme Switcher -->
+	<div class="absolute top-4 right-4">
+		<label class="swap swap-rotate">
+			<!-- Hidden checkbox to control the state -->
+			<input type="checkbox" class="theme-controller hidden" on:change={toggleTheme} />
+
+			<!-- Sun icon -->
+			<svg
+				class="swap-off h-10 w-10 fill-current text-[#303030]"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
 			>
-				Go Back
-			</button>
-			<button
-				class="w-full max-w-sm bg-purple-700 text-white py-3 rounded-lg shadow-md hover:bg-purple-800"
+				<path
+					d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"
+				/>
+			</svg>
+
+			<!-- Moon icon -->
+			<svg
+				class="swap-on h-10 w-10 fill-current"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
 			>
-				Continue
-			</button>
-		</div>
-	{/if}
+				<path
+					d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"
+				/>
+			</svg>
+		</label>
+	</div>
 </div>
